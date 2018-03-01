@@ -46,6 +46,7 @@ namespace Starts2000 {
 		/// KCP dotnet wrapper.
 		/// KCP is A Fast and Reliable ARQ Protocol, refer to https://github.com/skywind3000/kcp.
 		/// </summary>
+		/// <typeparam name="TUser">KCP user token type.</typeparam>
 		generic<typename TUser>
 		public ref class Kcp
 		{
