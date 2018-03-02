@@ -27,6 +27,15 @@ namespace Starts2000 {
 			OutData | OutAck | OutProbe | OutWins
 		};
 
+		/// <summary>
+		/// KCP output handler.
+		/// </summary>
+		/// <typeparam name="TUser">user token type.</typeparam>
+		/// <param name="buf">output buffer.</param>
+		/// <param name="len">output buffer length.</param>
+		/// <param name="kcp">KCP handle.</param>
+		/// <param name="user">user token, type is <typeparamref name="TUser"/></param>
+		/// <returns></returns>
 		generic<typename TUser>
 		public delegate int KcpOutputHandler(array<Byte>^ buf, int len, IntPtr kcp, TUser user);
 
@@ -36,6 +45,13 @@ namespace Starts2000 {
 		[UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
 		public delegate void KcpFreeHandler(IntPtr buffferPtr);
 
+		/// <summary>
+		/// KCP log handler.
+		/// </summary>
+		/// <typeparam name="TUser">user token type.</typeparam>
+		/// <param name="log">log info string.</param>
+		/// <param name="kcp">KCP handle.</param>
+		/// <param name="user">user token, type is <typeparamref name="TUser"/></param>
 		generic<typename TUser>
 		public delegate void KcpLogHandler(String^ log, IntPtr kcp, TUser user);
 
@@ -61,7 +77,7 @@ namespace Starts2000 {
 			/// <summary>
 			/// set output callback, which will be invoked by kcp.
 			/// </summary>
-			/// <param name="outputHandler"><see cref="KcpOutputHandler"/></param>
+			/// <param name="outputHandler">output handler.</param>
 			void SetOutput(KcpOutputHandler<TUser>^ outputHandler);
 
 			/// <summary>
@@ -158,7 +174,7 @@ namespace Starts2000 {
 			/// <summary>
 			/// set log.
 			/// </summary>
-			/// <param name="loghandler"><see cref="KcpLogHandler" /></param>
+			/// <param name="loghandler">log handler.</param>
 			void SetLog(KcpLogHandler<TUser>^ loghandler);
 
 			/// <summary>
@@ -180,6 +196,9 @@ namespace Starts2000 {
 			/// <param name="data"></param>
 			static UInt32 GetConv(array<Byte>^ data);
 
+			/// <summary>
+			/// get KCP user token.
+			/// </summary>
 			property TUser User {
 				TUser get() {
 					return this->user;
