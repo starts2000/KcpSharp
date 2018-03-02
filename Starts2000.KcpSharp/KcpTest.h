@@ -25,7 +25,7 @@ namespace Starts2000 {
 			int rttmax;
 			int nmax;
 
-			int UdpOutput(array<Byte>^ buf, int len, IntPtr kcp, int user);
+			int UdpOutput(IntPtr buf, int len, IntPtr kcp, IntPtr user);
 		};
 	}
 }

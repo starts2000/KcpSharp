@@ -30,40 +30,33 @@ namespace Starts2000 {
 		/// <summary>
 		/// KCP output handler.
 		/// </summary>
-		/// <typeparam name="TUser">user token type.</typeparam>
 		/// <param name="buf">output buffer.</param>
 		/// <param name="len">output buffer length.</param>
 		/// <param name="kcp">KCP handle.</param>
-		/// <param name="user">user token, type is <typeparamref name="TUser"/></param>
+		/// <param name="user">user token.</param>
 		/// <returns></returns>
-		generic<typename TUser>
-		public delegate int KcpOutputHandler(array<Byte>^ buf, int len, IntPtr kcp, TUser user);
+		[UnmanagedFunctionPointer(CallingConvention::Cdecl)]
+		public delegate int KcpOutputHandler(IntPtr buffer, int len, IntPtr kcp, IntPtr user);
 
-		[UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
+		[UnmanagedFunctionPointer(CallingConvention::Cdecl)]
 		public delegate IntPtr KcpMallocHandler(UInt32 size);
 
-		[UnmanagedFunctionPointerAttribute(CallingConvention::Cdecl)]
+		[UnmanagedFunctionPointer(CallingConvention::Cdecl)]
 		public delegate void KcpFreeHandler(IntPtr buffferPtr);
 
 		/// <summary>
 		/// KCP log handler.
 		/// </summary>
-		/// <typeparam name="TUser">user token type.</typeparam>
 		/// <param name="log">log info string.</param>
 		/// <param name="kcp">KCP handle.</param>
-		/// <param name="user">user token, type is <typeparamref name="TUser"/></param>
-		generic<typename TUser>
-		public delegate void KcpLogHandler(String^ log, IntPtr kcp, TUser user);
-
-		delegate int InnerOutputHandler(const char *buf, int len, ikcpcb* kcp, void* user);
-		delegate void InnerLogHandler(const char *log, ikcpcb *kcp, void *user);
+		/// <param name="user">user token.</param>
+		[UnmanagedFunctionPointer(CallingConvention::Cdecl)]
+		public delegate void KcpLogHandler([MarshalAs(UnmanagedType::LPTStr)]String^ log, IntPtr kcp, IntPtr user);
 
 		/// <summary>
 		/// KCP dotnet wrapper.
 		/// KCP is A Fast and Reliable ARQ Protocol, refer to https://github.com/skywind3000/kcp.
 		/// </summary>
-		/// <typeparam name="TUser">KCP user token type.</typeparam>
-		generic<typename TUser>
 		public ref class Kcp
 		{
 		public:
@@ -72,13 +65,13 @@ namespace Starts2000 {
 			/// </summary>
 			/// <param name="conv">must equal in two endpoint from the same connection.</param>
 			/// <param name="user">user token, will be passed to the output callback.</param>
-			Kcp(UInt32 conv, TUser user);
+			Kcp(UInt32 conv, Object^ user);
 
 			/// <summary>
 			/// set output callback, which will be invoked by kcp.
 			/// </summary>
 			/// <param name="outputHandler">output handler.</param>
-			void SetOutput(KcpOutputHandler<TUser>^ outputHandler);
+			void SetOutput(KcpOutputHandler^ outputHandler);
 
 			/// <summary>
 			/// user/upper level recv.
@@ -175,7 +168,7 @@ namespace Starts2000 {
 			/// set log.
 			/// </summary>
 			/// <param name="loghandler">log handler.</param>
-			void SetLog(KcpLogHandler<TUser>^ loghandler);
+			void SetLog(KcpLogHandler^ loghandler);
 
 			/// <summary>
 			/// setup allocator.
@@ -199,8 +192,8 @@ namespace Starts2000 {
 			/// <summary>
 			/// get KCP user token.
 			/// </summary>
-			property TUser User {
-				TUser get() {
+			property Object^ User {
+				Object^ get() {
 					return this->user;
 				}
 			}
@@ -218,21 +211,16 @@ namespace Starts2000 {
 
 		private:
 			ikcpcb * kcp;
-			TUser user;
+			Object^ user;
 
 			GCHandle userGCHandle;
 			GCHandle outputHandlerGcHandle;
 			GCHandle logHandlerGcHandle;
 
-			KcpOutputHandler<TUser> ^ outputHandler;
-			KcpLogHandler<TUser> ^ logHandler;
-
 			static GCHandle mallocHandlerGCHandle;
 			static GCHandle freeHandlerGCHandle;
 
 			void CheckKcp();
-			int Output(const char * buf, int len, ikcpcb* kcp, void* user);
-			void Log(const char *log, ikcpcb* kcp, void *user);
 		};
 	}
 }

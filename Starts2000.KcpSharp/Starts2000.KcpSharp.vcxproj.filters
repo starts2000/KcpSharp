@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="KcpSharp.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ikcp.h">
@@ -24,19 +24,16 @@
     <ClInclude Include="KcpException.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="KcpSharp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="KcpTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeKcpTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NativeKcpTestWrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NativeKcpTest.h">
+    <ClInclude Include="test.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,13 +41,13 @@
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="KcpSharp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="ikcp.c">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="KcpException.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="KcpSharp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="KcpTest.cpp">
@@ -62,16 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="app.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="app.ico">
-      <Filter>资源文件</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />
