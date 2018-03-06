@@ -139,8 +139,9 @@
   <ItemGroup>
     <ClInclude Include="ikcp.h" />
     <ClInclude Include="KcpException.h" />
-    <ClInclude Include="KcpSharp.h" />
+    <ClInclude Include="KcpOfTUser.h" />
     <ClInclude Include="KcpTest.h" />
+    <ClInclude Include="KcpType.h" />
     <ClInclude Include="NativeKcpTest.h" />
     <ClInclude Include="NativeKcpTestWrapper.h" />
     <ClInclude Include="test.h" />
@@ -154,8 +155,9 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="KcpException.cpp" />
-    <ClCompile Include="KcpSharp.cpp" />
+    <ClCompile Include="KcpOfTUser.cpp" />
     <ClCompile Include="KcpTest.cpp" />
+    <ClCompile Include="KcpType.cpp" />
     <ClCompile Include="NativeKcpTestWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>

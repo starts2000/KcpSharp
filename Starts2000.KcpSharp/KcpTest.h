@@ -1,6 +1,7 @@
 #pragma once
 
 #include "test.h"
+#include "KcpOfTUser.h"
 
 using namespace System;
 
@@ -25,7 +26,7 @@ namespace Starts2000 {
 			int rttmax;
 			int nmax;
 
-			int UdpOutput(IntPtr buf, int len, IntPtr kcp, IntPtr user);
+			int UdpOutput(Kcp<int>^ kcp, array<Byte>^ buf, int len);
 		};
 	}
 }

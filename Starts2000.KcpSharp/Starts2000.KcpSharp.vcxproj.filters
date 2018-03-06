@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KcpSharp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ikcp.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -30,18 +27,21 @@
     <ClInclude Include="NativeKcpTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="KcpType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="NativeKcpTestWrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="KcpOfTUser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="KcpSharp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ikcp.c">
@@ -54,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="NativeKcpTestWrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KcpType.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="KcpOfTUser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

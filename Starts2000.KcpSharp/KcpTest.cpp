@@ -1,5 +1,4 @@
 #include "KcpTest.h"
-#include "KcpSharp.h"
 
 Starts2000::KcpSharp::KcpTest::KcpTest() : KcpTest(10, 60, 125, 1000)
 {
@@ -13,9 +12,9 @@ Starts2000::KcpSharp::KcpTest::KcpTest(int lostrate, int rttmi, int rttmax, int 
 	this->nmax = nmax;
 }
 
-int Starts2000::KcpSharp::KcpTest::UdpOutput(IntPtr buffer, int len, IntPtr kcp, IntPtr user) {
-	auto userToken = GCHandle::FromIntPtr(user).Target;
-	vnet->send((int)userToken, buffer.ToPointer(), len);
+int Starts2000::KcpSharp::KcpTest::UdpOutput(Kcp<int>^ kcp, array<Byte>^ buffer, int len) {
+	pin_ptr<void> pBuffer = &buffer[0];
+	vnet->send(kcp->User, pBuffer, len);
 	return 0;
 }
 
@@ -26,14 +25,14 @@ void Starts2000::KcpSharp::KcpTest::Test(int mode)
 
 	// 创建两个端点的 kcp对象，第一个参数 conv是会话编号，同一个会话需要相同
 	// 最后一个是 user参数，用来传递标识
-	auto kcp1 = gcnew Kcp(0x11223344, (Object ^)0);
-	auto kcp2 = gcnew Kcp(0x11223344, (Object ^)1);
+	auto kcp1 = gcnew Kcp<int>(0x11223344, 0);
+	auto kcp2 = gcnew Kcp<int>(0x11223344, 1);
 
-	auto output = gcnew KcpOutputHandler(this, &KcpTest::UdpOutput);
+	auto output = gcnew KcpOutputHandler<int>(this, &KcpTest::UdpOutput);
 
 	// 设置kcp的下层输出，这里为 udp_output，模拟udp网络输出函数
-	kcp1->SetOutput(output);
-	kcp2->SetOutput(output);
+	kcp1->OutputHandler = output;
+	kcp2->OutputHandler = output;
 
 	IUINT32 current = iclock();
 	IUINT32 slap = current + 20;
@@ -97,6 +96,8 @@ void Starts2000::KcpSharp::KcpTest::Test(int mode)
 		while (1) {
 			hr = vnet->recv(1, pBuffer, 2000);
 			if (hr < 0) break;
+
+			int ss = BitConverter::ToInt32(buffer, 0);
 			// 如果 p2收到udp，则作为下层协议输入到kcp2
 			kcp2->Input(buffer, hr);
 		}

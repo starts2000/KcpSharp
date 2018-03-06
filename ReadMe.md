@@ -5,4 +5,4 @@
 
 ## 解决方案说明 ##
 - Starts2000.KcpSharp：KCP C++/CLI 封装。
-- Starts2000.KcpSharp.Test：KcpSharp 模拟测试项目，运行后输入 'N' ，执行 KCP 自带的模拟测试；输入 'W' ,执行 Kcp .NET 模拟测试；
+- Starts2000.KcpSharp.Test：KcpSharp 模拟测试项目，运行后输入 'N' ，执行 KCP 自带的模拟测试；输入 'W' ，执行 Kcp .NET 模拟测试；
