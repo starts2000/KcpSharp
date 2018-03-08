@@ -97,7 +97,6 @@ void Starts2000::KcpSharp::KcpTest::Test(int mode)
 			hr = vnet->recv(1, pBuffer, 2000);
 			if (hr < 0) break;
 
-			int ss = BitConverter::ToInt32(buffer, 0);
 			// 如果 p2收到udp，则作为下层协议输入到kcp2
 			kcp2->Input(buffer, hr);
 		}
